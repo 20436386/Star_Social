@@ -15,6 +15,12 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+POST_TEMPLATE_DIR = BASE_DIR.joinpath("post/templates/")
+POST_STATIC_DIR = BASE_DIR.joinpath("post/static/")
+
+ACCOUNTS_TEMPLATES_DIR = BASE_DIR.joinpath("accounts/templates/")
+
+GROUP_TEMPLATES_DIR = BASE_DIR.joinpath("group/templates/")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -37,6 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'post',
+    'accounts',
+    'group',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +63,7 @@ ROOT_URLCONF = 'star_social.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [POST_TEMPLATE_DIR, ACCOUNTS_TEMPLATES_DIR, GROUP_TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,7 +128,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    POST_STATIC_DIR,
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = '/'
