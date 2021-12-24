@@ -3,7 +3,7 @@
 {% block body_block %}
     {% if user.is_authenticated %}
         <h1>You are now logged in!</h1>
-        <a href="#"><h1>Go to Groups</h1></a>
+        <a href="{% url 'group:list_group' %}"><h1>Go to Groups</h1></a>
     {% else %}
         <h1>Welcome to star social!</h1>
     {% endif %}

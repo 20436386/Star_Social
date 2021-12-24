@@ -3,16 +3,27 @@ from django.views.generic import (TemplateView, ListView, DeleteView, CreateView
 from .models import Post
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 
-class ListUserPosts(LoginRequiredMixin, ListView):
-    login_url = '/accounts/login/'
+class ListUserPosts(ListView):
 
     model = Post
     template_name = 'post/post_list.html'
 
+
     def get_queryset(self):
-        print(self.request.user)
-        return Post.objects.filter(user=self.request.user)
+        # if self.request.user.is_authenticated():
+        #     return Post.objects.filter(user=self.request.user)
+        # else:
+        #     return Post.objects.filter(user=self.kwargs['user'])
+        user = User.objects.get(username=self.kwargs['user'])
+        return Post.objects.filter(user=user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['slug_user'] = self.kwargs['user']
+        return context
+        
 
 class CreatePost(LoginRequiredMixin, CreateView):
     login_url = '/accounts/login/'
@@ -20,8 +31,7 @@ class CreatePost(LoginRequiredMixin, CreateView):
     model=Post
     template_name = 'post/create_post.html'
 
-    fields = ('content',)
-    # fields = ('content','group')
+    fields = ('content','group')
 
     def form_valid(self, form):
         user = self.request.user

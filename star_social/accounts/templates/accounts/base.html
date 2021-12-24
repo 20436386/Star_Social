@@ -35,7 +35,7 @@
 
               {% if not user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Groups</a>
+                <a class="nav-link" href="{% url 'group:list_group' %}">Groups</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
@@ -46,13 +46,13 @@
 
               {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="#">Post</a>
+                <a class="nav-link" href="{% url 'post:create_post' %}">Post</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Groups</a>
+                <a class="nav-link" href="{% url 'group:list_group' %}">Groups</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Create Group</a>
+                <a class="nav-link" href="{% url 'group:create_group' %}">Create Group</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
@@ -66,7 +66,7 @@
 
       <div class="container-lg">
         <div class="row justify-content-center">
-          <div class="col-10 navbar_break">
+          <div class="col-10 navbar_break" style="padding-top: 2em">
             {% block body_block %}
             
             {% endblock body_block %}

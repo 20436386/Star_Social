@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-# from group.models import Group
+from group.models import Group
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    # group = models.ForeignKey(Group, related_name='posts', on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, related_name='posts', on_delete=models.CASCADE)
     content = models.TextField(max_length=512)
     create_date = models.DateTimeField()
 

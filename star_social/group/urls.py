@@ -1,9 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import CreateGroup
+from .views import CreateGroupView, GroupListView, GroupDetailView, group_member_add
 
 app_name = "group"
 
 urlpatterns = [
-    path('new/', CreateGroup.as_view(), name="create_group"),
+    path('new/', CreateGroupView.as_view(), name="create_group"),
+    path('list/', GroupListView.as_view(), name="list_group"),
+    path('detail/<int:pk>', GroupDetailView.as_view(), name="group_detail"),
+    path('member/add/<int:pk>', group_member_add, name="add_member"),
+
 ]
