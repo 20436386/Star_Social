@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.views.generic import (TemplateView, ListView, DeleteView, CreateView, DetailView, UpdateView)
-
 from post.forms import PostForm
 from .models import Post
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.urls import reverse, reverse_lazy
 
 class ListUserPosts(ListView):
 
@@ -52,3 +52,12 @@ class CreatePost(LoginRequiredMixin, CreateView):
 class PostDetailView(DetailView):
     model = Post
     template_name = 'post/post_detail.html'
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    login_url = '/accounts/login/'
+    model = Post
+
+
+    def get_success_url(self) -> str:
+        post_object = self.get_object()
+        return reverse_lazy('group:group_detail', kwargs={'pk': post_object.group.pk})

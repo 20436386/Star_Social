@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<form class="post_delete_form" method="post">
+    {% csrf_token %}
+    <h2>Are you sure you want to delete this post?</h2>
+
+    <div class="post_table">
+        <table >
+            <tr style=" vertical-align: text-top;">
+                <td>
+                    <a href="{% url 'post:list_posts' user=post.user %}"><h3>@{{post.user}}</h3></a>
+                </td>
+                <td style="padding-left: 2em;">
+                    <p>{{post.content}}</p>
+                    <p><a href="{% url 'post:post_detail' user=post.user pk=post.pk %}">{{post.create_date}}</a> in <a href="{% url 'group:group_detail' pk=post.group.pk%}">{{post.group}}</a></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    
+    <input class="btn btn-danger" type="submit" value="Confirm">
+    <a href="{% url 'group:group_detail' pk=post.group.pk%}"><button type="button" class="btn btn-light">Cancel</button><a/>
+</form>
+{% endblock body_block %}

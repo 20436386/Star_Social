@@ -18,6 +18,10 @@ a {
     padding-right:3px;
 }
 
+.delete_post_text{
+    color:red;
+}
+
 .group_list_container{
     background-color: white;
     border-radius: 0.5em;

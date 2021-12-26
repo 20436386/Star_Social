@@ -22,6 +22,8 @@ ACCOUNTS_TEMPLATES_DIR = BASE_DIR.joinpath("accounts/templates/")
 
 GROUP_TEMPLATES_DIR = BASE_DIR.joinpath("group/templates/")
 
+MAIN_TEMPLATES_DIR = BASE_DIR.joinpath("templates/")
+
 STATIC_DIR = BASE_DIR.joinpath("static/")
 
 # Quick-start development settings - unsuitable for production
@@ -66,7 +68,7 @@ ROOT_URLCONF = 'star_social.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [POST_TEMPLATE_DIR, ACCOUNTS_TEMPLATES_DIR, GROUP_TEMPLATES_DIR],
+        'DIRS': [MAIN_TEMPLATES_DIR, POST_TEMPLATE_DIR, ACCOUNTS_TEMPLATES_DIR, GROUP_TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

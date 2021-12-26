@@ -9,9 +9,6 @@ from django.urls import reverse_lazy
 
 # Create your views here.
 # https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#formview
-class HomeView(TemplateView):
-    template_name="accounts/home.html"
-
 class CreateUser(FormView):
     template_name = "accounts/registration.html"
     form_class = CustomUserCreationForm
