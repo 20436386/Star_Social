@@ -3,7 +3,7 @@
 {% block body_block %}
 
     <h1>{{group.name}}</h1>
-    <p>description: {{group.description}}</p>
+    <p>{{group.description}}</p>
     <h2>Member count: {{group.users.count}}</h2>
     <a href="{% url 'group:add_member' pk=group.pk %}"><button type="button" class="btn btn-warning"><i class="bi bi-person-plus"></i> Join</button></a>
     <br>
