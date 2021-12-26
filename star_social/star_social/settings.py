@@ -16,11 +16,13 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 POST_TEMPLATE_DIR = BASE_DIR.joinpath("post/templates/")
-POST_STATIC_DIR = BASE_DIR.joinpath("post/static/")
+# POST_STATIC_DIR = BASE_DIR.joinpath("post/static/")
 
 ACCOUNTS_TEMPLATES_DIR = BASE_DIR.joinpath("accounts/templates/")
 
 GROUP_TEMPLATES_DIR = BASE_DIR.joinpath("group/templates/")
+
+STATIC_DIR = BASE_DIR.joinpath("static/")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'post',
     'accounts',
     'group',
+    "django_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -129,7 +132,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    POST_STATIC_DIR,
+    STATIC_DIR,
 ]
 
 # Default primary key field type

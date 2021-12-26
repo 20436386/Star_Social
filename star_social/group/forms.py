@@ -1,6 +1,5 @@
 from django import forms
 from django.db.models import fields
-from django import forms
 from .models import Group
 from django.utils.translation import gettext_lazy as _
 
@@ -30,7 +29,7 @@ class GroupForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         #The style attribute should be placed in css file
-        self.fields['name'].widget.attrs.update({'style':'display:block;','class':'text_input', 'placeholder':'Name'})
-        self.fields['description'].widget.attrs.update({'style':'display:block;','class':'text_input','placeholder':'Description'})
+        self.fields['name'].widget.attrs.update({'class': 'text_input', 'placeholder':'Name'})
+        self.fields['description'].widget.attrs.update({'class': 'text_input','placeholder':'Description'})
 
     

@@ -17,7 +17,7 @@
                 </td>
                 <td style="padding-left: 2em;">
                     <p>{{post.content}}</p>
-                    <p>{{post.create_date}} in {{post.group}}</p>
+                    <p><a href="{% url 'post:post_detail' user=post.user pk=post.pk %}">{{post.create_date}}</a> in {{post.group}}</p>
                 </td>
             </tr>
             {% endfor %}

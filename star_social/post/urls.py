@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.urls import path
-from .views import ListUserPosts, CreatePost
+from .views import ListUserPosts, CreatePost, PostDetailView
 
 app_name='post'
 
 urlpatterns = [
     path('by/<slug:user>', ListUserPosts.as_view(), name="list_posts"),
     path('new/', CreatePost.as_view(), name="create_post"),
+    path('by/<slug:user>/<int:pk>', PostDetailView.as_view(), name="post_detail"),
+
     
 ]

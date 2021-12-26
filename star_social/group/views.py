@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import GroupForm
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 class CreateGroupView(LoginRequiredMixin, CreateView):
     login = 'accounts/login.html'
@@ -36,6 +37,7 @@ class GroupDetailView(DeleteView):
     model=Group
     template_name = 'group/group_detail.html'
 
+@login_required
 def group_member_add(request, pk):
     group_object = Group.objects.get(pk=pk)
     print(group_object)
