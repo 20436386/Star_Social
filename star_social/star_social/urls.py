@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homeView.as_view(), name='home'),
     path('post/', include("post.urls")),
-    path('accounts/', include("accounts.urls")),
+    path('accounts/', include("accounts.urls", namespace='accounts')),
+    # Think you need this if you dont pass template_name to logoutView
+    # path('accounts/', include("django.contrib.auth.urls")),
     path('group/', include("group.urls")),
 ]

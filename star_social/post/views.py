@@ -5,7 +5,10 @@ from .models import Post
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+# from accounts.models import User
 from django.urls import reverse, reverse_lazy
+# from django.contrib.auth import get_user
+
 
 class ListUserPosts(ListView):
 
@@ -15,9 +18,11 @@ class ListUserPosts(ListView):
 
     def get_queryset(self):
         # if self.request.user.is_authenticated():
+        ##     This will only return the user is the user is logged in     
         #     return Post.objects.filter(user=self.request.user)
         # else:
         #     return Post.objects.filter(user=self.kwargs['user'])
+        # #Note that get_user(self.request) is equivalent to self.request.user
         user = User.objects.get(username=self.kwargs['user'])
         return Post.objects.filter(user=user)
 
@@ -41,12 +46,13 @@ class CreatePost(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         user = self.request.user
-        print(user)
+        # print(user)
         new_post = form.save(commit=False)
         new_post.user = user
-        new_post.create_date = timezone.now()
+        # commented out because of the auto_now parameter in models
+        # new_post.create_date = timezone.now()
         new_post.save()
-        print("user={}\ncontent={}\ncreate_date={}".format(new_post.user, new_post.content, new_post.create_date))
+        # print("user={}\ncontent={}\ncreate_date={}".format(new_post.user, new_post.content, new_post.create_date))
         return super().form_valid(form)
 
 class PostDetailView(DetailView):

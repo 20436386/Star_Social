@@ -7,7 +7,7 @@ class GroupForm(forms.ModelForm):
     
     class Meta:
         model = Group
-        exclude = ['users']
+        exclude = ['users', 'slug', 'description_html']
 
         labels = {
                 'name': _('Name'),
