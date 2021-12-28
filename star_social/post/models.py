@@ -13,7 +13,7 @@ class Post(models.Model):
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey(Group, related_name='posts', on_delete=models.CASCADE)
     content = models.TextField(max_length=512)
-    content_html = models.TextField(max_length=512)
+    content_html = models.TextField(max_length=512, editable=False, blank=True, default='')
     # The auto_now parameter will automatically fill in the current datetime value. For some reason create_date field does not show in admin page, although the value is known to django
     create_date = models.DateTimeField(auto_now=True)
 

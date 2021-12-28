@@ -17,6 +17,7 @@ class Group(models.Model):
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(allow_unicode=True, unique=True)
     description = models.TextField(max_length=512, blank=True, default='')
+    # NB: i believe description_html will not show up in admin because it is editable=False
     description_html = models.TextField(max_length=512, editable=False, blank=True, default='')
     # Will use this in group detail view, must have button that will add user to the current group
     # Check part six here
@@ -26,7 +27,7 @@ class Group(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("group:group_detail", kwargs={"pk": self.pk})
+        return reverse("group:group_detail", kwargs={"slug": self.slug})
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)

@@ -7,8 +7,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 # from accounts.models import User
 from django.urls import reverse, reverse_lazy
-# from django.contrib.auth import get_user
+# from django.contrib.auth import get_user_model
 
+# User = get_user_model()
 
 class ListUserPosts(ListView):
 
@@ -32,6 +33,14 @@ class ListUserPosts(ListView):
     #     context = super().get_context_data(**kwargs)
     #     context['slug_user'] = self.kwargs['user']
     #     return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_username = self.kwargs['user']
+        current_user = User.objects.get(username=current_username)
+        # https://docs.djangoproject.com/en/4.0/topics/db/examples/many_to_many/
+        context['user_groups'] = current_user.group_set.all()
+        return context
         
 
 class CreatePost(LoginRequiredMixin, CreateView):
@@ -66,4 +75,4 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self) -> str:
         post_object = self.get_object()
-        return reverse_lazy('group:group_detail', kwargs={'pk': post_object.group.pk})
+        return reverse_lazy('group:group_detail', kwargs={'slug': post_object.group.slug})

@@ -25,4 +25,5 @@ urlpatterns = [
     # Think you need this if you dont pass template_name to logoutView
     # path('accounts/', include("django.contrib.auth.urls")),
     path('group/', include("group.urls")),
+    path('__debug__/', include('debug_toolbar.urls')),
 ]

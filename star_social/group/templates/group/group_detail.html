@@ -5,28 +5,48 @@
     <h1>{{group.name}}</h1>
     <p>{{group.description}}</p>
     <h2>Member count: {{group.users.count}}</h2>
-    {% if is_member %}
-        <a href="{% url 'group:remove_member' pk=group.pk %}"><button type="button" class="btn btn-warning"><i class="bi bi-x-circle"></i></i> Leave</button></a>
+    {% comment %} {% if is_member %} {% endcomment %}
+    {% if user in group.users.all %}
+        <a href="{% url 'group:remove_member' slug=group.slug %}"><button type="button" class="btn btn-warning"><i class="bi bi-x-circle"></i></i> Leave</button></a>
     {% else %}
-        <a href="{% url 'group:add_member' pk=group.pk %}"><button type="button" class="btn btn-warning"><i class="bi bi-person-plus"></i> Join</button></a>
+        <a href="{% url 'group:add_member' slug=group.slug %}"><button type="button" class="btn btn-warning"><i class="bi bi-person-plus"></i> Join</button></a>
     {% endif %}
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <p {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <br>
 
-    <div style="padding-top: 2em;" class="post_table">
-        <table >
+    <div class="post_table">
+        {% if group.posts.count == 0 %}
+            <h2>There are no posts in this group yet.</h2>
+        {% else %}
+        {% comment %} <table >
             {% for post in group.posts.all %}
             <tr style=" vertical-align: text-top;">
                 <td>
                     <a href="{% url 'post:list_posts' user=post.user %}"><h3>@{{post.user}}</h3></a>
                 </td>
                 <td style="padding-left: 2em;">
-                    <p>{{post.content}}</p>
+                    <p>{{post.content_html|safe}}</p>
                     <p><a href="{% url 'post:post_detail' user=post.user pk=post.pk %}">{{post.create_date}}</a> in {{post.group}}</p>
                     <a href="{% url 'post:post_delete' user=post.user pk=post.pk%}"><p class="delete_post_text"><i class="bi bi-x-circle-fill"></i> Delete</p></a>
                 </td>
             </tr>
             {% endfor %}
+        </table> {% endcomment %}
+        <table >
+            {% for post in group.posts.all %}
+            {% comment %} The include keyword pulls _post.html in here and passes all parameters after the 'with' keyword as context variables {% endcomment %}
+                {% include 'post/_post.html' with post=post hide_delete=False %}
+            {% endfor %}
         </table>
+        {% endif %}
     </div>
 
 {% endblock body_block %}

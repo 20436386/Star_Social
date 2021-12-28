@@ -3,10 +3,10 @@
 {% block body_block %}
 
     <div class="row justify-content-center">
-        <div class="col-4">
+        <div class="col-md-4">
             {% if user.is_authenticated %}
                 <h1>Welcome back</h1>
-                <a href="{% url 'post:list_posts' user=user %}"><h1 class="link">@{{user}}</h1></a>
+                <a href="{% url 'post:list_posts' user=user.username %}"><h1 class="link">@{{user}}</h1></a>
             {% endif %}
             <h1>Groups</h1>
             <p>Welcome to the Groups Page!<br>Select a Group with a shared interest!</p>
@@ -15,20 +15,25 @@
             {% endif %}
         </div>
 
-        <div class="col-8 group_list_container">
-            {% for group in group_list %}
-                <a href="{% url 'group:group_detail' pk=group.pk %}"><h3 class="group_list_text">{{group.name}}</h3></a>
-                <p class="group_list_text" >{{group.description}}</p>
-                <div class="row justify-content-left">
-                <div class="col-4">
-                    <p class="group_list_subtext"><span class="num_icon">{{group.users.count}}</span> member</p> 
-                </div>
-                <div class="col-4">
-                    <p class="group_list_subtext"><span class="num_icon">{{group.posts.count}}</span> posts</p>
-                </div>
-                </div>
-                <br>
-            {% endfor %}
+        <div class="col-md-8 group_list_container">
+            {% if group_list.count == 0 %}
+                <h2 class="group_list_text">There are no groups to display</h2>
+            {% else %}
+                {% for group in group_list %}
+                    <a href="{% url 'group:group_detail' slug=group.slug %}"><h3 class="group_list_text">{{group.name}}</h3></a>
+                    {% comment %} description_html is being displayed as white text, that is why you cant see it. Need to somehow change color of text {% endcomment %}
+                    <p>{{group.description_html|safe}}</p>
+                    <div class="row justify-content-left">
+                    <div class="col-4">
+                        <p class="group_list_subtext"><span class="num_icon">{{group.users.count}}</span> member</p> 
+                    </div>
+                    <div class="col-4">
+                        <p class="group_list_subtext"><span class="num_icon">{{group.posts.count}}</span> posts</p>
+                    </div>
+                    </div>
+                    <br>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 

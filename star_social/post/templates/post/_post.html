@@ -1,0 +1,13 @@
+<tr style=" vertical-align: text-top;">
+    <td>
+        <a href="{% url 'post:list_posts' user=post.user %}"><h3>@{{post.user}}</h3></a>
+    </td>
+    <td style="padding-left: 2em;">
+        <p>{{post.content_html|safe}}</p>
+        <p><a href="{% url 'post:post_detail' user=post.user pk=post.pk %}">{{post.create_date}}</a> in <a href="{% url 'group:group_detail' slug=post.group.slug%}">{{post.group}}</a></p>
+        {% comment %} NB: The hide_delete varible is passed as a context variable when using the include template tag in other html files {% endcomment %}
+        {% if user.is_authenticated and user == post.user and not hide_delete%}
+            <a href="{% url 'post:post_delete' user=post.user pk=post.pk%}" title="delete"><p class="delete_post_text"><i class="bi bi-x-circle-fill"></i> Delete</p></a>
+        {% endif %}
+    </td>
+</tr>
